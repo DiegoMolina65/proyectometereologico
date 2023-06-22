@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      setInterval(function(){
+        $("#sensorData").load('getdata.php')
+      }, 2000);  // refresh every 2 seconds
+    });
+  </script>
+</head>
+<body>
+
+<h2>Sensor Data</h2>
+<div id="sensorData"></div>
+
+</body>
+</html>
