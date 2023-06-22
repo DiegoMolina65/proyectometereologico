@@ -1,0 +1,9 @@
+En esta se muestran los valores de distance MQTTX:
+http://34.171.0.123/proyectometereologico/index.html
+
+Para que se actualice tenes que ejecutar el archivo mqtt.php, se encarga de guardar los datos en phpmyadmin
+# En google cloud el comando es "php mqtt.php"
+
+getdata muestra los datos de phpmyadmin en el index.html
+
+Para añadir los demas sensores hay que editar (mqtt.php, getdata.php, index.html)
