@@ -9,7 +9,7 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT distance FROM sensor_data ORDER BY id DESC LIMIT 1";
+$sql = "SELECT distance FROM sensor_values ORDER BY id DESC LIMIT 1";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
