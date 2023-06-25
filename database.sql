@@ -3,10 +3,11 @@ CREATE DATABASE sensor_data;
 USE sensor_data;
 
 CREATE TABLE sensor_values (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    distance FLOAT,
+    id SERIAL PRIMARY KEY,
+    timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     temperature FLOAT,
     humidity FLOAT,
-    wind_quality FLOAT,
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    pressure FLOAT,
+    air_quality FLOAT,
+    distance FLOAT
 );
