@@ -40,17 +40,17 @@ function procMsg($topic, $msg){
   if ($topic == 'distance') {
     $distance = $json['distance'];
     $stmt = $conn->prepare("INSERT INTO sensor_values (distance) VALUES (?)");
-    $stmt->bind_param("f", $distance);
+    $stmt->bind_param("d", $distance);
   } else if ($topic == 'bme680') {
     $temperature = $json['temperature'];
     $humidity = $json['humidity'];
     $pressure = $json['pressure'];
     $stmt = $conn->prepare("INSERT INTO sensor_values (temperature, humidity, pressure) VALUES (?, ?, ?)");
-    $stmt->bind_param("fff", $temperature, $humidity, $pressure);
+    $stmt->bind_param("ddd", $temperature, $humidity, $pressure);
   } else if ($topic == 'mq135') {
     $airQuality = $json['air_quality'];
     $stmt = $conn->prepare("INSERT INTO sensor_values (air_quality) VALUES (?)");
-    $stmt->bind_param("f", $airQuality);
+    $stmt->bind_param("d", $airQuality);
   }
   
   if ($conn->error) {
