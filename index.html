@@ -6,7 +6,9 @@
   <script>
     $(document).ready(function(){
       setInterval(function(){
-        $("#sensorData").load('getdata.php')
+        $("#sensorData").load('getdata.php', function() {
+          $("#sensorData table").addClass("sensor-table");
+        });
       }, 2000);  // refresh every 2 seconds
     });
   </script>

@@ -33,3 +33,24 @@ body {
     background-color: #f2f2f2;
   }
   
+  #sensorData table {
+    width: 100%;
+  }
+  
+  #sensorData th, #sensorData td {
+    padding: 10px;
+  }
+  
+  #sensorData th {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  #sensorData tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  #sensorData tr:hover {
+    background-color: #ddd;
+  }
+  
