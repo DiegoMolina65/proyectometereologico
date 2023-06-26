@@ -22,17 +22,14 @@ $topics = array(
 $mqtt->subscribe($topics, 0);
 
 while($mqtt->proc()){
-  $mqtt->publish($topics['bme680']['topic'], 'get-data');
-  usleep(1000000); // Espera 1 segundo antes de publicar el siguiente tópico
-
-  $mqtt->publish($topics['mq135']['topic'], 'get-data');
-  usleep(1000000); // Espera 1 segundo antes de publicar el siguiente tópico
-
-  $mqtt->publish($topics['lluvia']['topic'], 'get-data');
-  usleep(1000000); // Espera 1 segundo antes de publicar el siguiente tópico
-
-  $mqtt->publish($topics['viento']['topic'], 'get-data');
-  usleep(1000000); // Espera 1 segundo antes de publicar el siguiente tópico
+  if ($mqtt->topics && is_array($mqtt->topics)) {
+    foreach ($mqtt->topics as $topic_key => $topic_val) {
+      $topic = $topic_val['topic'];
+      $function = $topic_val['function'];
+      $mqtt->publish($topic, 'get-data');
+      usleep(1000000); // Espera 1 segundo antes de publicar el siguiente tópico
+    }
+  }
 }
 
 $mqtt->close();
