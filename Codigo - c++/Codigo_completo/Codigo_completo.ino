@@ -9,6 +9,8 @@
 
 // Configuración de red WiFi
 const char* ssid = "diegoelmastoroo";
+
+
 const char* password = "123456789";
 
 // Configuración del broker MQTT

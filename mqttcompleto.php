@@ -8,7 +8,7 @@ $username = "diegomolina";
 $password = "diegomolina"; 
 $mqtt = new phpMQTT($host, $port, "PHP MQTT Client"); 
 
-if(!$mqtt->connect(true, NULL, $username, $password)) {
+if (!$mqtt->connect(true, NULL, $username, $password)) {
   exit(1);
 }
 
@@ -21,12 +21,12 @@ $topics = array(
 
 $mqtt->subscribe($topics, 0);
 
-while($mqtt->proc()){
+while ($mqtt->proc()) {
 }
 
 $mqtt->close();
 
-function procMsgBME680($topic, $msg){
+function procMsgBME680($topic, $msg) {
   echo "BME680 Msg Received: $msg\n";
   $json = json_decode($msg, true);
   
@@ -57,7 +57,7 @@ function procMsgBME680($topic, $msg){
   $conn->close();
 }
 
-function procMsgMQ135($topic, $msg){
+function procMsgMQ135($topic, $msg) {
   echo "MQ135 Msg Received: $msg\n";
   $json = json_decode($msg, true);
   
@@ -86,7 +86,7 @@ function procMsgMQ135($topic, $msg){
   $conn->close();
 }
 
-function procMsgLluvia($topic, $msg){
+function procMsgLluvia($topic, $msg) {
   echo "Lluvia Msg Received: $msg\n";
   $json = json_decode($msg, true);
   
@@ -116,7 +116,7 @@ function procMsgLluvia($topic, $msg){
   $conn->close();
 }
 
-function procMsgViento($topic, $msg){
+function procMsgViento($topic, $msg) {
   echo "Viento Msg Received: $msg\n";
   $json = json_decode($msg, true);
   
