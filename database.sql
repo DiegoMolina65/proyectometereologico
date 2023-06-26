@@ -9,5 +9,7 @@ CREATE TABLE sensor_values (
     humidity FLOAT,
     pressure FLOAT,
     air_quality FLOAT,
-    distance FLOAT
+    lluvia_detectada FLOAT,
+    acumulado_lluvia FLOAT,
+    velocidad_viento FLOAT
 );

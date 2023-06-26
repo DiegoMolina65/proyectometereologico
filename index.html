@@ -1,7 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <style>
+    /* Estilos CSS adicionales para la página climática */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    #sensorData {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    table {
+      width: 100%;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      padding: 10px;
+      text-align: left;
+    }
+
+    td {
+      padding: 10px;
+    }
+
+    .sensor-table {
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+  </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function(){
@@ -15,16 +56,12 @@
 </head>
 <body>
 
-<h2>Datos de los sensores</h2>
+<h1>Estado del Clima</h1>
 <div id="sensorData">
   <table>
     <tr>
       <th>Sensor</th>
       <th>Valor</th>
-    </tr>
-    <tr>
-      <td>Distancia</td>
-      <td id="distance"></td>
     </tr>
     <tr>
       <td>Temperatura</td>
@@ -35,12 +72,24 @@
       <td id="humidity"></td>
     </tr>
     <tr>
-      <td>Presion</td>
+      <td>Presión</td>
       <td id="pressure"></td>
     </tr>
     <tr>
-      <td>Calidad del aire</td>
+      <td>Calidad del Aire</td>
       <td id="airQuality"></td>
+    </tr>
+    <tr>
+      <td>Lluvia Detectada</td>
+      <td id="lluviaDetectada"></td>
+    </tr>
+    <tr>
+      <td>Acumulado de Lluvia</td>
+      <td id="acumuladoLluvia"></td>
+    </tr>
+    <tr>
+      <td>Velocidad del Viento</td>
+      <td id="velocidadViento"></td>
     </tr>
   </table>
 </div>

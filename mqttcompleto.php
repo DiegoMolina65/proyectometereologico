@@ -13,9 +13,10 @@ if(!$mqtt->connect(true, NULL, $username, $password)) {
 }
 
 $topics = array(
-  'distance' => array("qos" => 0, "function" => "procMsgDistance"),
   'bme680' => array("qos" => 0, "function" => "procMsgBME680"),
-  'mq135' => array("qos" => 0, "function" => "procMsgMQ135")
+  'mq135' => array("qos" => 0, "function" => "procMsgMQ135"),
+  'lluvia' => array("qos" => 0, "function" => "procMsgLluvia"),
+  'viento' => array("qos" => 0, "function" => "procMsgViento")
 );
 
 $mqtt->subscribe($topics, 0);
@@ -24,34 +25,6 @@ while($mqtt->proc()){
 }
 
 $mqtt->close();
-
-function procMsgDistance($topic, $msg){
-  echo "Distance Msg Received: $msg\n";
-  $json = json_decode($msg, true);
-  
-  // Assumed to have $conn as mysqli connection
-  // Please setup your database connection
-  $conn = new mysqli('localhost', 'phpmyadmin', 'admin', 'sensor_data');
-
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
-  
-  $distance = $json['distance'];
-  $stmt = $conn->prepare("INSERT INTO sensor_values (distance) VALUES (?)");
-  $stmt->bind_param("d", $distance);
-  
-  if ($conn->error) {
-    die("SQL error: " . $conn->error);
-  }
-  
-  $stmt->execute();
-
-  echo "New distance record created successfully\n";
-
-  $stmt->close();
-  $conn->close();
-}
 
 function procMsgBME680($topic, $msg){
   echo "BME680 Msg Received: $msg\n";
@@ -108,6 +81,65 @@ function procMsgMQ135($topic, $msg){
   $stmt->execute();
 
   echo "New MQ135 record created successfully\n";
+
+  $stmt->close();
+  $conn->close();
+}
+
+function procMsgLluvia($topic, $msg){
+  echo "Lluvia Msg Received: $msg\n";
+  $json = json_decode($msg, true);
+  
+  // Assumed to have $conn as mysqli connection
+  // Please setup your database connection
+  $conn = new mysqli('localhost', 'phpmyadmin', 'admin', 'sensor_data');
+
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+  
+  $lluviaDetectada = $json['lluvia_detectada'];
+  $acumuladoLluvia = $json['acumulado_lluvia'];
+  
+  $stmt = $conn->prepare("INSERT INTO sensor_values (lluvia_detectada, acumulado_lluvia) VALUES (?, ?)");
+  $stmt->bind_param("dd", $lluviaDetectada, $acumuladoLluvia);
+  
+  if ($conn->error) {
+    die("SQL error: " . $conn->error);
+  }
+  
+  $stmt->execute();
+
+  echo "New Lluvia record created successfully\n";
+
+  $stmt->close();
+  $conn->close();
+}
+
+function procMsgViento($topic, $msg){
+  echo "Viento Msg Received: $msg\n";
+  $json = json_decode($msg, true);
+  
+  // Assumed to have $conn as mysqli connection
+  // Please setup your database connection
+  $conn = new mysqli('localhost', 'phpmyadmin', 'admin', 'sensor_data');
+
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+  
+  $velocidadViento = $json['velocidad_viento'];
+  
+  $stmt = $conn->prepare("INSERT INTO sensor_values (velocidad_viento) VALUES (?)");
+  $stmt->bind_param("d", $velocidadViento);
+  
+  if ($conn->error) {
+    die("SQL error: " . $conn->error);
+  }
+  
+  $stmt->execute();
+
+  echo "New Viento record created successfully\n";
 
   $stmt->close();
   $conn->close();
