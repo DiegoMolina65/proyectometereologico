@@ -6,30 +6,50 @@
   <script>
     $(document).ready(function(){
       setInterval(function(){
-        $.get('getdata.php?topic=bme680', function(data) {
-          $('#temperature').text(data.temperature);
-          $('#humidity').text(data.humidity);
-          $('#pressure').text(data.pressure);
-        }, 'json');
+        $.ajax({
+          url: 'getdata.php',
+          data: {topic: 'bme680'},
+          dataType: 'json',
+          success: function(data) {
+            $('#temperature').text(data.temperature);
+            $('#humidity').text(data.humidity);
+            $('#pressure').text(data.pressure);
+          }
+        });
       }, 1000);  // refresh every 1 second
       
       setInterval(function(){
-        $.get('getdata.php?topic=mq135', function(data) {
-          $('#airQuality').text(data.air_quality);
-        }, 'json');
+        $.ajax({
+          url: 'getdata.php',
+          data: {topic: 'mq135'},
+          dataType: 'json',
+          success: function(data) {
+            $('#airQuality').text(data.air_quality);
+          }
+        });
       }, 2000);  // refresh every 2 seconds
       
       setInterval(function(){
-        $.get('getdata.php?topic=lluvia', function(data) {
-          $('#lluviaDetectada').text(data.lluvia_detectada);
-          $('#acumuladoLluvia').text(data.acumulado_lluvia);
-        }, 'json');
+        $.ajax({
+          url: 'getdata.php',
+          data: {topic: 'lluvia'},
+          dataType: 'json',
+          success: function(data) {
+            $('#lluviaDetectada').text(data.lluvia_detectada);
+            $('#acumuladoLluvia').text(data.acumulado_lluvia);
+          }
+        });
       }, 3000);  // refresh every 3 seconds
       
       setInterval(function(){
-        $.get('getdata.php?topic=viento', function(data) {
-          $('#velocidadViento').text(data.velocidad_viento);
-        }, 'json');
+        $.ajax({
+          url: 'getdata.php',
+          data: {topic: 'viento'},
+          dataType: 'json',
+          success: function(data) {
+            $('#velocidadViento').text(data.velocidad_viento);
+          }
+        });
       }, 4000);  // refresh every 4 seconds
     });
   </script>
