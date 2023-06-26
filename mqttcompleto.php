@@ -21,7 +21,18 @@ $topics = array(
 
 $mqtt->subscribe($topics, 0);
 
+$topicOrder = ['bme680', 'mq135', 'lluvia', 'viento'];
+$topicIndex = 0;
+
 while($mqtt->proc()){
+  if ($topicIndex === count($topicOrder)) {
+    $topicIndex = 0;
+  }
+  
+  $currentTopic = $topicOrder[$topicIndex];
+  $mqtt->publish($currentTopic, 'get-data');
+  
+  $topicIndex++;
 }
 
 $mqtt->close();
@@ -29,29 +40,24 @@ $mqtt->close();
 function procMsgBME680($topic, $msg){
   echo "BME680 Msg Received: $msg\n";
   $json = json_decode($msg, true);
-  
-  // Assumed to have $conn as mysqli connection
-  // Please setup your database connection
-  $conn = new mysqli('localhost', 'phpmyadmin', 'admin', 'sensor_data');
 
+  $temperature = $json['temperature'];
+  $humidity = $json['humidity'];
+  $pressure = $json['pressure'];
+
+  $conn = new mysqli('localhost', 'phpmyadmin', 'admin', 'sensor_data');
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
   }
   
-  $temperature = $json['temperature'];
-  $humidity = $json['humidity'];
-  $pressure = $json['pressure'];
-  
   $stmt = $conn->prepare("INSERT INTO sensor_values (temperature, humidity, pressure) VALUES (?, ?, ?)");
   $stmt->bind_param("ddd", $temperature, $humidity, $pressure);
   
-  if ($conn->error) {
-    die("SQL error: " . $conn->error);
+  if ($stmt->execute()) {
+    echo "Datos BME680 almacenados correctamente\n";
+  } else {
+    echo "Error al almacenar los datos BME680: " . $stmt->error . "\n";
   }
-  
-  $stmt->execute();
-
-  echo "New BME680 record created successfully\n";
 
   $stmt->close();
   $conn->close();
@@ -60,27 +66,22 @@ function procMsgBME680($topic, $msg){
 function procMsgMQ135($topic, $msg){
   echo "MQ135 Msg Received: $msg\n";
   $json = json_decode($msg, true);
-  
-  // Assumed to have $conn as mysqli connection
-  // Please setup your database connection
-  $conn = new mysqli('localhost', 'phpmyadmin', 'admin', 'sensor_data');
 
+  $airQuality = $json['air_quality'];
+  
+  $conn = new mysqli('localhost', 'phpmyadmin', 'admin', 'sensor_data');
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
   }
   
-  $airQuality = $json['air_quality'];
-  
   $stmt = $conn->prepare("INSERT INTO sensor_values (air_quality) VALUES (?)");
   $stmt->bind_param("d", $airQuality);
   
-  if ($conn->error) {
-    die("SQL error: " . $conn->error);
+  if ($stmt->execute()) {
+    echo "Datos MQ135 almacenados correctamente\n";
+  } else {
+    echo "Error al almacenar los datos MQ135: " . $stmt->error . "\n";
   }
-  
-  $stmt->execute();
-
-  echo "New MQ135 record created successfully\n";
 
   $stmt->close();
   $conn->close();
@@ -89,28 +90,23 @@ function procMsgMQ135($topic, $msg){
 function procMsgLluvia($topic, $msg){
   echo "Lluvia Msg Received: $msg\n";
   $json = json_decode($msg, true);
-  
-  // Assumed to have $conn as mysqli connection
-  // Please setup your database connection
-  $conn = new mysqli('localhost', 'phpmyadmin', 'admin', 'sensor_data');
 
+  $lluviaDetectada = $json['lluvia_detectada'];
+  $acumuladoLluvia = $json['acumulado_lluvia'];
+  
+  $conn = new mysqli('localhost', 'phpmyadmin', 'admin', 'sensor_data');
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
   }
   
-  $lluviaDetectada = $json['lluvia_detectada'];
-  $acumuladoLluvia = $json['acumulado_lluvia'];
-  
   $stmt = $conn->prepare("INSERT INTO sensor_values (lluvia_detectada, acumulado_lluvia) VALUES (?, ?)");
   $stmt->bind_param("dd", $lluviaDetectada, $acumuladoLluvia);
   
-  if ($conn->error) {
-    die("SQL error: " . $conn->error);
+  if ($stmt->execute()) {
+    echo "Datos de lluvia almacenados correctamente\n";
+  } else {
+    echo "Error al almacenar los datos de lluvia: " . $stmt->error . "\n";
   }
-  
-  $stmt->execute();
-
-  echo "New Lluvia record created successfully\n";
 
   $stmt->close();
   $conn->close();
@@ -119,27 +115,22 @@ function procMsgLluvia($topic, $msg){
 function procMsgViento($topic, $msg){
   echo "Viento Msg Received: $msg\n";
   $json = json_decode($msg, true);
-  
-  // Assumed to have $conn as mysqli connection
-  // Please setup your database connection
-  $conn = new mysqli('localhost', 'phpmyadmin', 'admin', 'sensor_data');
 
+  $velocidadViento = $json['velocidad_viento'];
+
+  $conn = new mysqli('localhost', 'phpmyadmin', 'admin', 'sensor_data');
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
   }
   
-  $velocidadViento = $json['velocidad_viento'];
-  
   $stmt = $conn->prepare("INSERT INTO sensor_values (velocidad_viento) VALUES (?)");
   $stmt->bind_param("d", $velocidadViento);
   
-  if ($conn->error) {
-    die("SQL error: " . $conn->error);
+  if ($stmt->execute()) {
+    echo "Datos de viento almacenados correctamente\n";
+  } else {
+    echo "Error al almacenar los datos de viento: " . $stmt->error . "\n";
   }
-  
-  $stmt->execute();
-
-  echo "New Viento record created successfully\n";
 
   $stmt->close();
   $conn->close();

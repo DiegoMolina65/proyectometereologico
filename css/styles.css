@@ -1,40 +1,41 @@
-/* Estilos CSS adicionales para la página climática */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 20px;
-}
+    /* Estilos CSS adicionales para la página climática */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
 
-h1 {
-  text-align: center;
-  color: #333;
-}
+    h1 {
+      text-align: center;
+      color: #333;
+    }
 
-#sensorData {
-  max-width: 600px;
-  margin: 20px auto;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+    #sensorData {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-table {
-  width: 100%;
-}
+    table {
+      width: 100%;
+    }
 
-th {
-  background-color: #f2f2f2;
-  padding: 10px;
-  text-align: left;
-}
+    th {
+      background-color: #f2f2f2;
+      padding: 10px;
+      text-align: left;
+    }
 
-td {
-  padding: 10px;
-}
+    td {
+      padding: 10px;
+    }
 
-.sensor-table {
-  border-collapse: collapse;
-  margin-top: 10px;
-}
+    .sensor-list {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }

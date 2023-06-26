@@ -2,54 +2,23 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="css/styles.css">
-  <style>
-    /* Estilos CSS adicionales para la página climática */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 20px;
-    }
-
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-
-    #sensorData {
-      max-width: 600px;
-      margin: 20px auto;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    table {
-      width: 100%;
-    }
-
-    th {
-      background-color: #f2f2f2;
-      padding: 10px;
-      text-align: left;
-    }
-
-    td {
-      padding: 10px;
-    }
-
-    .sensor-table {
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-  </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function(){
       setInterval(function(){
         $("#sensorData").load('getdata.php', function() {
           $("#sensorData table").addClass("sensor-table");
+
+          // Dividir mediciones en listas horizontales
+          var sensorList = $(".sensor-list");
+          sensorList.each(function() {
+            var sensors = $(this).children("td");
+            sensors.wrapInner("<ul></ul>");
+            sensors.each(function() {
+              var sensorValue = $(this).text();
+              $(this).html("<li>" + sensorValue + "</li>");
+            });
+          });
         });
       }, 2000);  // refresh every 2 seconds
     });
@@ -64,31 +33,31 @@
       <th>Sensor</th>
       <th>Valor</th>
     </tr>
-    <tr>
+    <tr class="sensor-list">
       <td>Temperatura</td>
       <td id="temperature"></td>
     </tr>
-    <tr>
+    <tr class="sensor-list">
       <td>Humedad</td>
       <td id="humidity"></td>
     </tr>
-    <tr>
+    <tr class="sensor-list">
       <td>Presion</td>
       <td id="pressure"></td>
     </tr>
-    <tr>
+    <tr class="sensor-list">
       <td>Calidad del Aire</td>
       <td id="airQuality"></td>
     </tr>
-    <tr>
+    <tr class="sensor-list">
       <td>Lluvia Detectada</td>
       <td id="lluviaDetectada"></td>
     </tr>
-    <tr>
+    <tr class="sensor-list">
       <td>Acumulado de Lluvia</td>
       <td id="acumuladoLluvia"></td>
     </tr>
-    <tr>
+    <tr class="sensor-list">
       <td>Velocidad del Viento</td>
       <td id="velocidadViento"></td>
     </tr>
