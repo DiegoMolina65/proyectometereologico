@@ -1,56 +1,40 @@
+/* Estilos CSS adicionales para la página climática */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    margin: 0;
-    padding: 20px;
-  }
-  
-  h2 {
-    text-align: center;
-  }
-  
-  #sensorData {
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 500px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-  }
-  
-  #sensorData table {
-    width: 100%;
-  }
-  
-  #sensorData th, #sensorData td {
-    padding: 10px;
-  }
-  
-  #sensorData th {
-    background-color: #333;
-    color: #fff;
-  }
-  
-  #sensorData tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  #sensorData tr:hover {
-    background-color: #ddd;
-  }
-  
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+#sensorData {
+  max-width: 600px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  background-color: #f2f2f2;
+  padding: 10px;
+  text-align: left;
+}
+
+td {
+  padding: 10px;
+}
+
+.sensor-table {
+  border-collapse: collapse;
+  margin-top: 10px;
+}
