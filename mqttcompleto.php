@@ -13,10 +13,10 @@ if(!$mqtt->connect(true, NULL, $username, $password)) {
 }
 
 $topics = array(
-  'bme680' => array("qos" => 0, "function" => "procMsgBME680"),
-  'mq135' => array("qos" => 0, "function" => "procMsgMQ135"),
-  'lluvia' => array("qos" => 0, "function" => "procMsgLluvia"),
-  'viento' => array("qos" => 0, "function" => "procMsgViento")
+  'bme680' => array("topic" => "bme680", "qos" => 0, "function" => "procMsgBME680"),
+  'mq135' => array("topic" => "mq135", "qos" => 0, "function" => "procMsgMQ135"),
+  'lluvia' => array("topic" => "lluvia", "qos" => 0, "function" => "procMsgLluvia"),
+  'viento' => array("topic" => "viento", "qos" => 0, "function" => "procMsgViento")
 );
 
 $mqtt->subscribe($topics, 0);
